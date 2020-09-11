@@ -1,7 +1,6 @@
 # பேழை
----
 
-An E-Commerce website containing products scraped from ebay.com 
+An E-Commerce website containing products scraped from [Ebay](https://ebay.com/) 
 
 ### Use the website on heroku --> [பேழை]()
 
