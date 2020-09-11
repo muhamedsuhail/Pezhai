@@ -1,0 +1,52 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+{% block head %}
+<style>
+#search-bar
+{
+    pointer-events: none;
+}
+body
+{
+    margin-top:110px !important;
+    margin-bottom: 0px !important;
+}
+</style>
+{% endblock %}
+{% block body %}    
+    <div id="checkout_form" class="container">
+        <h4>Shipping address</h4>
+        <form action="{% url 'checkout' %}" method="post">
+            {% csrf_token %}
+            {{form}}
+            <div id="items" style="margin:10px"></div>
+            <button type="submit" class="checkout btn btn-info">Proceed to Payment</button>
+            <a class="checkout_cancel btn btn-link" href="{% url 'index' 'index'%}">Cancel</a>
+        </form>
+    </div>
+    <script src="{% static 'Capstone/js/base.js' %}"></script>
+    <script>
+        var total = parseInt(localStorage.getItem('cart-total'));
+
+        if(`{{message}}`)
+        {
+            alert("Something went wrong!Please Try again.")
+        }
+        
+        // Disable all click events except form submission and cancellation buttons.
+        document.addEventListener("click",handler,true)
+        function handler(e){
+            if(["checkout","checkout_cancel"].indexOf(e.target.classList[0])==-1)
+            {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+        
+        if(!total)
+        {
+            window.location.pathname="index";
+        }
+        $('#items').html(`Total amount payable: ₹ ${numberWithCommas(total)}`);        
+    </script>
+{% endblock %}

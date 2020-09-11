@@ -1,0 +1,88 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+{% block title %}{{title|title}}{% endblock %}
+
+{% block head %}
+<script src="{% static 'Capstone/js/base.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <h3 style="padding-bottom: 30px;text-align:center">{{title|title}}</h3>
+    <div class="cont">
+        {% for i in page_obj %}
+        <div class="card" id="p{{i.id}}" style="width: 18rem;">
+            <div style="height: 15rem; text-align: center;" class="card-img-top">
+                <a href="{% url 'p_page' i.id %}"><img style="margin-top: 30px;" src="{{i.img_link}}" alt="image" /></a>
+            </div>
+            
+            <div class="card-body">
+                <a href="{% url 'p_page' i.id %}">
+                    <p class="card-title p_title">{{i.name}}</p>
+                </a>
+                <div class="star-rating"></div>
+                <span><strong>{{i.price}}</strong></span>
+                <br />
+                <span class="text-muted">{{i.shipping_price}}</span>
+                <script type="application/javascript">
+                    var rating = `{{i.rating}}`;
+                    if (rating != 0) 
+                    {
+                        for (j = 1; j <= 5; j++) 
+                        {
+                            if (j <= rating) 
+                            {
+                                jQuery('<span/>', {
+                                    "class": 'fa fa-star checked',
+                                }).appendTo($(`#p{{i.id}} .star-rating`));
+                            } 
+                            else 
+                            {
+                                jQuery('<span/>', {
+                                    "class": 'fa fa-star',
+                                }).appendTo($(`#p{{i.id}} .star-rating`));
+                            }
+                        }
+                    }
+                </script>
+            </div>
+            
+        </div>
+        {% empty %}
+            <h5>Currently, there are no products to show</h5>
+        {% endfor %}
+            
+    </div>
+    <nav aria-label="Page navigation" id="pagination">
+            
+        <ul class="pagination">
+            
+            {% if page_obj.has_previous %}
+                
+                <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a></li>
+                
+            {% else %}
+                
+                <li class="page-item disabled"><a class="page-link">First</a></li>
+                <li class="page-item disabled"><a class="page-link">Previous</a></li>
+            
+            {% endif %}
+    
+                <li class="page-item"><a href="?page={{page_obj.number}}" class="page-link">{{page_obj.number}}</a></li>
+    
+            {% if page_obj.has_next %}
+                
+                <li class="page-item"><a href="?page={{page_obj.next_page_number}}" class="page-link">Next</a></li>
+                <li class="page-item"><a href="?page={{page_obj.paginator.num_pages}}" class="page-link">Last</a></li>
+            
+            {% else %}
+                
+                <li class="page-item disabled"><a class="page-link">Next</a></li>
+                <li class="page-item disabled"><a class="page-link">Last</a></li>
+            
+            {% endif %}
+        
+        </ul>
+    
+    </nav>
+{% endblock %}

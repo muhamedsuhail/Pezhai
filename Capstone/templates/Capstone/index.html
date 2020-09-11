@@ -1,0 +1,90 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+{% block head %}
+    <script src="{% static 'Capstone/slick/slick/slick.js' %}"></script>
+    <link href="{% static 'Capstone/slick/slick/slick.css' %}"rel="stylesheet"/>
+    <link href="{% static 'Capstone/slick/slick/slick-theme.css' %}"rel="stylesheet"/>
+{% endblock %}
+{% block body %}
+<div class="cont">
+    <div class="carousel">
+        <div><a href="{% url 'index' 'laptops' %}"><img src="{% static 'Capstone/stock_img/temp1.jpg' %}" alt="carousel"></a></div>
+        <div><a href="{% url 'index' 'Smartphones' %}"><img src="{% static 'Capstone/stock_img/temp2.jpg' %}" alt="carousel"></a></div>
+        <div><a href="{% url 'index' 'Smartphones' %}"><img src="{% static 'Capstone/stock_img/temp3.jpg' %}" alt="carousel"></a></div>
+        <div><a href="{% url 'index' 'Men\'s-Clothing' %}"><img src="{% static 'Capstone/stock_img/temp4.jpg' %}" alt="carousel"></a></div>
+        <div><a href="{% url 'index' 'Women\'s-Clothing' %}"><img src="{% static 'Capstone/stock_img/temp5.jpg' %}" alt="carousel"></a></div>
+    </div>
+    <div class="card text-center deals">
+        
+        <div class="card-header">
+            Deals of the Day  <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </div>
+        
+        <div class="card-body">
+            
+            <div class="row col row-cols-1 row-cols-md-3">
+            {% for i in data %}
+                <div class="col row">
+                    <div class="card h-100" id="p{{i.id}}" style="width: 18rem;">
+                        <div style="height: 15rem; text-align: center;max-width: 100%;" >
+                            <a href="{% url 'p_page' i.id %}"><img style="margin-top: 30px;" src="{{i.img_link}}" alt="image" /></a>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'p_page' i.id %}">
+                                <p class="card-title p_title">{{i.name}}</p>
+                            </a>
+                            <div class="star-rating"></div>
+                            <span><strong>{{i.price}}</strong></span>
+                            <br/>
+                            <span class="text-muted">{{i.shipping_price}}</span>
+                            <script type="application/javascript">
+                                var rating = `{{i.rating}}`;
+                                if (rating != 0) 
+                                {
+                                    for (j = 1; j <= 5; j++) 
+                                    {
+                                        if (j <= rating) 
+                                        {
+                                            jQuery('<span/>', {
+                                                "class": 'fa fa-star checked',
+                                            }).appendTo($(`#p{{i.id}} .star-rating`));
+                                        } 
+                                        else 
+                                        {
+                                            jQuery('<span/>', {
+                                                "class": 'fa fa-star',
+                                            }).appendTo($(`#p{{i.id}} .star-rating`));
+                                        }
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'Capstone/js/base.js' %}"></script>
+<script>
+    $(window).load(()=>{
+        $('.carousel').css("display","block");
+    });
+    var arrows = (click_event=='click');
+    $('.carousel').slick({
+        dots:true,
+        autoplay:true,
+        arrows:arrows,
+        centerMode:true,
+        fade:true,
+        draggable:true,
+        infinite:true,
+        touchMove:true,
+    });
+    
+</script>
+
+{% endblock %}

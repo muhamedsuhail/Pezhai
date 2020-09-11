@@ -1,0 +1,98 @@
+{% extends "Capstone/base.html" %}
+{% load static %}
+
+{% block title %}{{product_details.product_title}}{% endblock %}
+
+{% block head %}
+    <script src="{% static 'Capstone/slick/slick/slick.js' %}"></script>
+    <link href="{% static 'Capstone/slick/slick/slick.css' %}"rel="stylesheet"/>
+    <link href="{% static 'Capstone/slick/slick/slick-theme.css' %}"rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div id="outer-cont">
+        <div class="grid-item">
+            <div class="d-flex flex-row flex-wrap ">
+                <div id="img_gallery">
+
+                    <div id="cont" class="slick-stage">
+                        {% for i in product_details.product_images %}
+                            <div>
+                                <img src="{{i}}" alt="">
+                            </div>
+                            
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="image-listing slick-carousel">
+                        {% for i in product_details.product_images %}
+                            <div>
+                                <img src="{{i}}" alt="">
+                            </div>
+                            
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="product_details">
+                    <div>
+                        <h3 id="product_title"><strong>{{product_details.product_title}}</strong></h3>
+                        <br>
+                        <h3 id="product_price">{{product.price}}</h3>
+                        <h6 id="product_shipping_price" class="text-muted">{{product.shipping_price}}</h6>
+                        <div>
+                            <label>
+                                Quantity:
+                                <select id="quantity">
+                                    <option selected> 1 </option>
+                                    <option> 2 </option>
+                                    <option> 3 </option>
+                                    <option> 4 </option>
+                                    <option> 5 </option>
+                                </select>
+                            </label>
+                        </div>
+                        <br>
+                        <div id="buy">
+                            <button class="btn btn-dark">Add to cart</button>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="product_specifications grid-item">
+            <h2><strong>About this Product</strong></h2>
+            <br>
+                <table>
+                
+                    {% if product_details.spec_titles|length == 0 %}
+                        {% for key,value in product_details.product_spec.items %}
+                            <tr>
+                                <td class="name">{{key}}</td>
+                                <td class="value">{{value}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for key,value in product_details.product_spec.items %}
+                            {% if "Product Information" != key %}
+                                <th style="width: 50%;">{{key}}</th>
+                                {% for i in value.items %}
+                                <tr>
+                                    {% for j in i %}
+                                        <td class="{% cycle 'name' 'value' %}">{{j}}</td> 
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <h6><strong>{{key}}</strong></h6>
+                                <h6>{{value}}</h6>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </table>    
+        </div>
+    </div>
+    <script src="{% static 'Capstone/js/base.js' %}"></script>
+    <script src="{% static 'Capstone/js/product_page.js' %}"></script>
+{% endblock %}

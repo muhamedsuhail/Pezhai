@@ -1,0 +1,95 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+
+{% block title%}My Orders{% endblock %}
+
+{% block body %}
+<div class="container" >
+    {% for key,value in data.items %}
+    <div style="text-align: center;">
+        <h6 style="margin-top:100px;font-weight: bold;">Order#{{forloop.counter}} 
+            <span class="modaltoggle">
+                <i style="cursor: pointer;" class="fa fa-info-circle" aria-hidden="true"></i>
+                {% if key.status|lower == 'false' %}
+                    <p style="color: red;">Order Cancelled</p>
+                {% endif %}
+            </span>
+        </h6>
+        
+        <div class="trg" style="display: none;">
+            {% if key.status %}
+                <p>Order Placed on {{key.date}}</p>
+            {% else %}
+                <span><a class="order_delete" data="{{key.id}}" href="javascript:void(0)">Delete Order</a></span>
+            {% endif %}
+            <p><span class="text-muted">Order Total: </span>₹ {{key.total_cost}}</p>
+            <div class="d-flex flex-row justify-content-center">
+                <div style="text-align:left;line-height: 5px;">
+                    <h5>Shipping Address:</h5>
+                    <br>
+                    {% for i in key.address_as_lines %}
+                        <p>{{i}}</p>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <ul class="list-group my-1 mb-1" style="margin:0px;padding:0px;align-items: center;">
+            
+            {% for i in value.items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center order_items">
+                <div class="col-md-4 col" style="line-height: 150px;padding:5px">
+                    <div class="order-image-container">
+                        <a href="{% url 'p_page' i.item.id %}"><img src="{{i.item.img_link}}" class="card-img" alt="Item_image"></a>
+                    </div>
+                </div>
+                <div class="col-md-8 col">
+                    <p>{{i.total_cost}}</p>
+                    <a href="{% url 'p_page' i.item.id %}" style="color:black"><p>{{i.item.name|truncatechars:30}}</p></a>
+                    <p>₹ {{i.item.total_cost}}</p>
+                    <small class="text-muted">Quantity: {{i.quantity}}</small>
+                    
+                </div>      
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+        <div style="text-align: center;">
+            <h5>Oops! You have no orders to show.</h5>
+            <a href="{% url 'index' 'index' %}" class="btn btn-link">&#x2190; Go back to homepage</a>
+        </div>
+    {% endfor %}
+</div>
+
+<script src="{% static 'Capstone/js/base.js' %}"></script>
+<script>
+    $('.modaltoggle').each(function(){
+        $(this).on("click",function(){
+            $(this).parentsUntil('.container').last().find('.trg').slideToggle("fast");
+        })
+    })
+    $('.order_delete').each(function(){
+        $(this).click(function(){
+        if(confirm("Sure about deleting the order?"))
+        {
+            var headers = new Headers();
+            headers.append('X-CSRFToken', csrftoken);
+            data = new FormData();
+            data.append("tag","deleteOrder");
+            data.append("id",$(this).attr("data"))
+            fetch("/",{
+                method:"POST",
+                body:data,
+                credentials:'same-origin',
+                headers:headers,
+            })
+            .then(()=>{
+                alert("Order Deleted");
+                window.location.reload();
+            })
+        }
+        })
+    })
+</script>
+{% endblock %}

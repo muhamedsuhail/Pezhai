@@ -1,0 +1,28 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+{% block head %}
+<style>
+.cont input
+{
+    margin:10px;   
+}
+</style>
+{% endblock %}
+{% block body %}
+{% if message %}
+        <div class="alert alert-danger">{{message}}</div>
+{% endif %}
+<div class="cont"style="margin-top:50px;text-align: center;"> 
+    <form action="{% url 'login' %}" method="post">
+        <h4>Login</h4>
+        {% csrf_token %}
+        {{form}}
+        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+        <button class="btn btn-dark" type="submit">Login</button>
+        <br>
+        <br>
+        <p>Don't have an account? Create one <a href="{% url 'register' %}"><button style="padding:0px;cursor: pointer;" type="button" class="btn btn-link">here</button></a></p>
+    </form>
+</div>
+<script src="{% static 'Capstone/js/base.js' %}"></script>
+{% endblock %}

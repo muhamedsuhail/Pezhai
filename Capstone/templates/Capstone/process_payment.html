@@ -1,0 +1,64 @@
+{% extends 'Capstone/base.html' %}
+{% load static %}
+{% block title %}Make Payment{% endblock %}
+{% block head %}
+<style>
+#search-bar
+{
+    pointer-events: none;
+}
+body
+{
+    margin-top:110px !important;
+    margin-bottom: 0px !important;
+}
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container" style="margin: 60px auto;text-align: center;padding:10px">
+        <div style="padding:50px 5px">
+            <div class="card text-center">
+                <div class="card-header">
+                    Order Summary
+                </div>
+                <div class="card-body">
+                    <ul class=" d-flex flex-column justify-content-center align-items-center">
+                    {% for i in order.ordered_items.all %}
+                        <li class=" d-flex flex-row justify-content-center align-items-center" style="margin: 50px auto;padding:10px;max-width:500px;max-height: 100px;">
+                            <div class="col-md-5 col-4" style="line-height: 150px;padding:5px">
+                                <a href=""><img src="{{i.img_link}}" class="card-img" alt="Item_image"></a>
+                            </div>
+                            <div class="col-md-8 col-9" style="line-height: 20px;text-align: left;">
+                                <a href="" style="color:black"><p>{{i.name|truncatechars:35}}</p></a>
+                                <p class="">{{i.price}}</p>
+                                <small class="text-muted">Quantity: 3{{i.quantity}}</small>
+                                
+                            </div> 
+                        </li>     
+                        
+                    {% endfor %}        
+                </ul>
+                </div>
+                <div class="card-footer text-muted">
+                    <span class="text-muted">Order Total:</span> ₹ {{order.total_cost}}
+                </div>
+            </div>
+            
+        </div>
+
+    <div id="paypal-button-container"></div>
+    <a href="{% url 'index' 'index' %}" class="navigate-back btn btn-link">&#x2190; Go back to homepage</a>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATQT3qEs9FDCUu1Qr1X_qS1aesM7gfmVxj6kkMi9oBEyRJvPtcC0Tlq2Al0kMktIAjU4-JF-alYyb2O7&currency=INR&components=buttons,funding-eligibility"></script>
+    <script src="{% static 'Capstone/js/base.js' %}"></script>
+    <script>
+        var order_id = `{{order.id}}`;
+        var total = `{{order.total_cost}}`;
+        javascript:window.history.forward(1);  // Users cannot return back to this page after payment
+        var csrftoken = Cookies.get('csrftoken');
+        var url = "{% url 'process_payment' %}";
+    </script>
+    <script src="{% static 'Capstone/js/process_payment.js' %}"></script>
+    </div>
+{% endblock %}
