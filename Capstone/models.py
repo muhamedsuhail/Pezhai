@@ -37,6 +37,9 @@ class Product(models.Model):
     order = models.ManyToManyField(Order,blank=True,related_name="ordered_items",through="ordered_quantity")
     cart = models.ManyToManyField(Cart,blank=True,related_name="cart_items",through="cart_quantity")
     
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return f"{self.id}-{self.name}"    
 
