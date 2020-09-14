@@ -5,7 +5,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .forms import CheckoutForm,LoginForm,RegisterForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
-from paypal.standard.forms import PayPalPaymentsForm
 from .product_info_scraper import product_details
 from django.http.response import JsonResponse
 from django.http import HttpResponseRedirect
