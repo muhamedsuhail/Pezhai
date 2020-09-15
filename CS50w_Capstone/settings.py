@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'CS50w_Capstone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd7150itegaurc0',
+        'USER': 'lkynlhslxiyxnj',
+        'PASSWORD': 'da11a178c5e34d97f6b06925ecaf44e64fcb1d8f5d26d47a31f98c24895e67dd',
+        'HOST': 'ec2-52-21-247-176.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
