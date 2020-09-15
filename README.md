@@ -2,7 +2,7 @@
 
 An E-Commerce website containing products scraped from [Ebay](https://ebay.com/) 
 
-### Use the website on heroku --> [பேழை]()
+### Use the website on heroku --> [பேழை](https://pezhai-ecommerce.herokuapp.com/)
 
 > This is a project submitted for [Harvard's CS50 Web programming with python and javascript.](https://cs50.harvard.edu/web/2020/)
 
