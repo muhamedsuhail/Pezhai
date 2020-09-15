@@ -1,6 +1,6 @@
 # பேழை
 
-An E-Commerce website containing products scraped from [Ebay](https://ebay.com/) 
+An E-Commerce website containing products scraped from [eBay.](https://ebay.com/) 
 
 ### Use the website on heroku --> [பேழை](https://pezhai-ecommerce.herokuapp.com/)
 
@@ -13,8 +13,8 @@ An E-Commerce website containing products scraped from [Ebay](https://ebay.com/)
 *   Users can make Payment through Paypal.
 *   Users can Search for Products across the website.
 
-### Web Scraping:
+## Web Scraping:
 
-*   The products you see throughout the website are scraped from [Ebay](https://ebay.com/)
+*   The products you see throughout the website are scraped from [eBay.](https://ebay.com/)
 *   The URL of the product listing page of ebay is used to scrape the products.
 *   When a User visits a Product Page, the URL of the product which is saved in the database is used to scrap the images and specifications of the product.
