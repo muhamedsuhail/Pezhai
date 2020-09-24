@@ -30,7 +30,7 @@ An E-Commerce website containing products scraped from [eBay.](https://ebay.com/
 ### Chekout Page
 ![Checkout](https://github.com/muhamedsuhail/Pezhai/blob/master/Screenshots/Checkout.jpg?raw=true)
 ### Payment
-![Payment](https://github.com/muhamedsuhail/Pezhai/blob/master/Screenshots/Payment.gif?raw=true)
+![Payment](https://github.com/muhamedsuhail/Pezhai/blob/master/Screenshots/Payment.gif)
 ### Responsive Version
 ![Responsive_Homepage](https://github.com/muhamedsuhail/Pezhai/blob/master/Screenshots/Responsive_Homepage.jpg?raw=true)
 ![Responsive_nav](https://github.com/muhamedsuhail/Pezhai/blob/master/Screenshots/Responsive_nav.jpg?raw=true)
